@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-pv-pod
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: [ "sh" , "-c", "echo Static Demo > /data/test.txt && sleep 3600" ]
+    volumeMounts:
+      - name:  static-storage
+        mountPath: /data
+  volumes:
+  - name:  static-storage
+    persistentVolumeClaim:
+      claimName: demo-pvc
